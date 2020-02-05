@@ -6,11 +6,15 @@ inputs:
     description: 'Who to greet'
     required: true
     default: 'World'
+  TERRAFORM_VERSION:
+    description: ''
+    required: false
+    default: 'latest'
 outputs:
   time: # id of output
     description: 'The time we greeted you'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: ${{ format('{0}:{1}', 'hashicorp/terraform', inputs.TERRAFORM_VERSION) }}
   args:
     - ${{ inputs.who-to-greet }}
